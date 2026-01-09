@@ -5,7 +5,8 @@ import 'package:movie_app/presentation/provider/movie/movie_repository_provider.
 
 final nowPlayingMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(() => MoviesNotifier());
 
-typedef MovieCallback = Future<List<Movie>> Function({int page});
+// typedef MovieCallback = Future<List<Movie>> Function({int page});
+
 class MoviesNotifier extends Notifier<List<Movie>>{
   int currentPage = 0;
   @override
