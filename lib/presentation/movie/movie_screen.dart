@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:movie_app/presentation/provider/providers.dart';
+import 'package:movie_app/presentation/widgets/widgets.dart';
 
 class MovieScreen extends StatelessWidget {
   static const name = 'home-screen';
@@ -42,14 +43,23 @@ class _MoviesViewState extends ConsumerState<_MoviesView> {
     //Aqui si puedo usar watch para estar pendiente de los cambios 
     final moviesList = ref.watch(nowPlayingMoviesProvider);
 
-    return ListView.builder(
-      itemCount:  moviesList.length,
-      itemBuilder: (context, index) {
-        final movie = moviesList[index];
-        return ListTile(
-          title: Text(movie.title) ,
-        );
-      },
-      );
+    return Column(
+      children: [
+        CustomAppbar(),
+
+        MoviesSlideshow(movies: moviesList),
+        // Expanded(
+        //   child: ListView.builder(
+        //     itemCount:  moviesList.length,
+        //     itemBuilder: (context, index) {
+        //       final movie = moviesList[index];
+        //       return ListTile(
+        //         title: Text(movie.title) ,
+        //       );
+        //     },
+        //     ),
+        // ),
+      ],
+    );
   }
 }
