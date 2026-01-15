@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:movie_app/presentation/provider/movie/slider_movie_provider.dart';
 import 'package:movie_app/presentation/provider/providers.dart';
+import 'package:movie_app/presentation/widgets/shared/custom_buttom_navigator.dart';
 import 'package:movie_app/presentation/widgets/widgets.dart';
 
 class MovieScreen extends StatelessWidget {
@@ -10,12 +12,13 @@ class MovieScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: _MoviesView()
-      )
+      body: _MoviesView(),
+      bottomNavigationBar: CustomBottomNavigation(),
     );
   }
 }
+
+
 
 class _MoviesView extends ConsumerStatefulWidget {
   const _MoviesView();
@@ -41,24 +44,19 @@ class _MoviesViewState extends ConsumerState<_MoviesView> {
     //despues de iniciar y cargar la data 
     //ya esta disponible el listado de peliculas 
     //Aqui si puedo usar watch para estar pendiente de los cambios 
-    final moviesList = ref.watch(nowPlayingMoviesProvider);
+    final moviesList2 = ref.watch(nowPlayingMoviesProvider);
+
+    final moviesList = ref.watch(slideMovieProvider);
 
     return Column(
       children: [
         CustomAppbar(),
-
         MoviesSlideshow(movies: moviesList),
-        // Expanded(
-        //   child: ListView.builder(
-        //     itemCount:  moviesList.length,
-        //     itemBuilder: (context, index) {
-        //       final movie = moviesList[index];
-        //       return ListTile(
-        //         title: Text(movie.title) ,
-        //       );
-        //     },
-        //     ),
-        // ),
+        MoviesHorizontalListview(
+          movies: moviesList2,
+          label: 'En Cines',
+          subLabel: 'Lunes 20',
+           )
       ],
     );
   }
