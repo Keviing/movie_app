@@ -56,6 +56,7 @@ class _MoviesViewState extends ConsumerState<_MoviesView> {
           movies: moviesList2,
           label: 'En Cines',
           subLabel: 'Lunes 20',
+           loadNextPague: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage() ,
            )
       ],
     );

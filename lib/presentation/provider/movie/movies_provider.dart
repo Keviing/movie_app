@@ -18,8 +18,6 @@ class MoviesNotifier extends Notifier<List<Movie>>{
  Future<void> loadNextPage() async{
 
   currentPage ++;
-
-
   //hacemos la peticion 
   final List<Movie> movies = await ref.watch(movieRepositoryProvider).getNowMovie(page: currentPage);
 
