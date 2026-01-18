@@ -7,8 +7,8 @@ class CustomAppbar extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme.primary;
     final titleStyle = Theme.of(context).textTheme.titleMedium;
-    return SafeArea(
-      child: Padding(
+    return  Padding(
+      
         padding: EdgeInsetsGeometry.symmetric(horizontal: 10),
         child: SizedBox(
           width: double.infinity, // Esto significa toma todo el ancho disponible 
@@ -26,6 +26,6 @@ class CustomAppbar extends StatelessWidget {
             ],
           ),
         ),
-        ) );
+        ) ;
   }
 }

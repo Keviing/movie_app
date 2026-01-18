@@ -9,6 +9,7 @@ final nowPlayingMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>((
 
 class MoviesNotifier extends Notifier<List<Movie>>{
   int currentPage = 0;
+  bool isLoading = false;
   @override
   List<Movie> build() {
     
@@ -16,12 +17,15 @@ class MoviesNotifier extends Notifier<List<Movie>>{
   }
  
  Future<void> loadNextPage() async{
+  if(isLoading) return;
 
+  isLoading = true;
   currentPage ++;
   //hacemos la peticion 
   final List<Movie> movies = await ref.watch(movieRepositoryProvider).getNowMovie(page: currentPage);
 
   state = [...state, ...movies];
+  isLoading = false;
 
  }
 

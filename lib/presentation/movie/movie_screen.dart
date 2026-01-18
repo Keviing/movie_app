@@ -18,8 +18,6 @@ class MovieScreen extends StatelessWidget {
   }
 }
 
-
-
 class _MoviesView extends ConsumerStatefulWidget {
   const _MoviesView();
 
@@ -31,33 +29,59 @@ class _MoviesViewState extends ConsumerState<_MoviesView> {
   @override
   void initState() {
     super.initState();
-    //Aqui inicia la aplicacion 
-    //Por lo que debemos cargar la data por primera vez 
+    //Aqui inicia la aplicacion
+    //Por lo que debemos cargar la data por primera vez
     //En metodos del ciclo de vida como init es aconsejable usar read
-    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();  
+    ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
   }
-
 
   @override
   Widget build(BuildContext context) {
-
-    //despues de iniciar y cargar la data 
-    //ya esta disponible el listado de peliculas 
-    //Aqui si puedo usar watch para estar pendiente de los cambios 
+    //despues de iniciar y cargar la data
+    //ya esta disponible el listado de peliculas
+    //Aqui si puedo usar watch para estar pendiente de los cambios
     final moviesList2 = ref.watch(nowPlayingMoviesProvider);
 
     final moviesList = ref.watch(slideMovieProvider);
 
-    return Column(
-      children: [
-        CustomAppbar(),
-        MoviesSlideshow(movies: moviesList),
-        MoviesHorizontalListview(
-          movies: moviesList2,
-          label: 'En Cines',
-          subLabel: 'Lunes 20',
-           loadNextPague: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage() ,
-           )
+    return CustomScrollView(
+      slivers: [
+        //existe una propiedad donde podemos colocar un widget o diseño
+        //como appbar de este scroll
+        SliverAppBar(
+          floating: true,
+
+          title: CustomAppbar()
+        ),
+        //Lista de slivers -> fragmentos
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            childCount: 1,
+            (context,index,) {
+            return Column(
+              children: [
+
+                MoviesSlideshow(movies: moviesList),
+                MoviesHorizontalListview(
+                  movies: moviesList2,
+                  label: 'En Cines',
+                  subLabel: 'Lunes 20',
+                  loadNextPague: () => ref
+                      .read(nowPlayingMoviesProvider.notifier)
+                      .loadNextPage(),
+                ),
+                MoviesHorizontalListview(
+                  movies: moviesList2,
+                  label: 'Proximamente',
+                  subLabel: 'En cines',
+                  loadNextPague: () => ref
+                      .read(nowPlayingMoviesProvider.notifier)
+                      .loadNextPage(),
+                ),
+              ],
+            );
+          }),
+        ),
       ],
     );
   }
