@@ -5,4 +5,6 @@ abstract class MovieDatasource {
 
  Future<List<Movie>>  getNowMovie({int page = 1}); 
 
+ Future<List<Movie>>  getMoviePopular({int page = 1}); 
+
 }

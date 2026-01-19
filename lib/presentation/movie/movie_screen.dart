@@ -33,6 +33,7 @@ class _MoviesViewState extends ConsumerState<_MoviesView> {
     //Por lo que debemos cargar la data por primera vez
     //En metodos del ciclo de vida como init es aconsejable usar read
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
   }
 
   @override
@@ -43,6 +44,8 @@ class _MoviesViewState extends ConsumerState<_MoviesView> {
     final moviesList2 = ref.watch(nowPlayingMoviesProvider);
 
     final moviesList = ref.watch(slideMovieProvider);
+
+    final popularMovies = ref.watch(popularMoviesProvider);
 
     return CustomScrollView(
       slivers: [
@@ -71,11 +74,10 @@ class _MoviesViewState extends ConsumerState<_MoviesView> {
                       .loadNextPage(),
                 ),
                 MoviesHorizontalListview(
-                  movies: moviesList2,
-                  label: 'Proximamente',
-                  subLabel: 'En cines',
+                  movies: popularMovies,
+                  label: 'Populares',
                   loadNextPague: () => ref
-                      .read(nowPlayingMoviesProvider.notifier)
+                      .read(popularMoviesProvider.notifier)
                       .loadNextPage(),
                 ),
               ],
