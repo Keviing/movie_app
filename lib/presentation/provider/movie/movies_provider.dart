@@ -6,7 +6,7 @@ final nowPlayingMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
   () {
     return MoviesNotifier(
       fetchMoreMovies: (ref, page) =>
-          ref.read(movieRepositoryProvider).getNowMovie(page: page),
+          ref.watch(movieRepositoryProvider).getNowMovie(page: page),
     );
   },
 );
@@ -14,10 +14,26 @@ final nowPlayingMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
 //COnsultar las peliculas mas populares 
 final popularMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
   () => MoviesNotifier(
-    fetchMoreMovies: (ref, page) => ref.read(movieRepositoryProvider).getMoviePopular(page: page),
+    fetchMoreMovies: (ref, page) => ref.watch(movieRepositoryProvider).getMoviePopular(page: page),
     )
   
   );
+
+  //Consultar las peliculas mejor calificadas 
+  final topRadeMoviesProvider = NotifierProvider(() {
+   return MoviesNotifier(fetchMoreMovies: (ref, page) => ref.watch(movieRepositoryProvider).getTopRade(page: page),
+   ); 
+  });
+
+  final upComingMovieProvider = NotifierProvider(() {
+    return MoviesNotifier(fetchMoreMovies: (ref, page) {
+      
+      final variable = ref.watch(movieRepositoryProvider).getUpcoming(page: page);      
+
+      return variable;
+      }  );
+  });
+
 // typedef MovieCallback = Future<List<Movie>> Function(Ref ref, int page);
 
 class MoviesNotifier extends Notifier<List<Movie>> {
