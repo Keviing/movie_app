@@ -10,4 +10,6 @@ abstract class MovieDatasource {
  Future<List<Movie>> getTopRade({int page = 1});
 
  Future<List<Movie>> getUpcoming({int page = 1}); 
+
+ Future<Movie> getMovieById(String id);
 }

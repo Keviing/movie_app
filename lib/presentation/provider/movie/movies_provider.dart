@@ -34,12 +34,13 @@ final popularMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
       }  );
   });
 
-// typedef MovieCallback = Future<List<Movie>> Function(Ref ref, int page);
+typedef MovieCallback = Future<List<Movie>> Function(Ref ref, int page);
 
 class MoviesNotifier extends Notifier<List<Movie>> {
   int currentPage = 0;
   bool isLoading = false;
-  final Future<List<Movie>> Function(Ref ref, int page) fetchMoreMovies;
+  // final Future<List<Movie>> Function(Ref ref, int page) fetchMoreMovies;// typedef MovieCallback = Future<List<Movie>> Function(Ref ref, int page);
+  final MovieCallback fetchMoreMovies;
   // final MovieCallback fetchMoreMovies;
 
   //Constructor de la clase

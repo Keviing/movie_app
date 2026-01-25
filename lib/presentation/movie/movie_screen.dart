@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:movie_app/presentation/provider/movie/slider_movie_provider.dart';
+import 'package:movie_app/presentation/provider/movie/initial_loading_provider.dart';
 import 'package:movie_app/presentation/provider/providers.dart';
 import 'package:movie_app/presentation/widgets/movies/full_screen_loader.dart';
 import 'package:movie_app/presentation/widgets/shared/custom_buttom_navigator.dart';
@@ -44,6 +44,8 @@ class _MoviesViewState extends ConsumerState<_MoviesView> {
     //despues de iniciar y cargar la data
     //ya esta disponible el listado de peliculas
     //Aqui si puedo usar watch para estar pendiente de los cambios
+    final stateInitial = ref.watch(initialLoadingProvider);
+    if(stateInitial) return  FullScreenLoader();
     final moviesList2 = ref.watch(nowPlayingMoviesProvider);
 
     final moviesList = ref.watch(slideMovieProvider);
@@ -53,7 +55,7 @@ class _MoviesViewState extends ConsumerState<_MoviesView> {
     final topRadeMovies = ref.watch(topRadeMoviesProvider);
     final upComingMovies = ref.watch(upComingMovieProvider);
 
-    return FullScreenLoader();
+    
     return CustomScrollView(
       slivers: [
         //existe una propiedad donde podemos colocar un widget o diseño

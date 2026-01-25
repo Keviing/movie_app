@@ -1,10 +1,10 @@
 
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
 import 'package:movie_app/config/constant/enviroment.dart';
 import 'package:movie_app/domain/datasource/movie_datasource.dart';
 import 'package:movie_app/domain/entities/movie.dart';
 import 'package:movie_app/infrastructure/mappers/movie_mappers.dart';
+import 'package:movie_app/infrastructure/models/moviedb/movie_detail.dart';
 import 'package:movie_app/infrastructure/models/moviedb/moviedb_response.dart';
 
 class MoviedbDatasource extends  MovieDatasource{
@@ -61,6 +61,16 @@ class MoviedbDatasource extends  MovieDatasource{
     );
 
     return _jsonToMovie(response.data);
+  }
+  
+  @override
+  Future<Movie> getMovieById(String id) async{
+    final response = await dio.get('/movie/$id');
+
+    if(response.statusCode != 200) throw  Exception("Movie en error");
+    final MovieDetail movieResponse = MovieDetail.fromJson(response.data);
+
+    return MovieMappers.movieDetailToEntity(movieResponse);
   }
   
 }
