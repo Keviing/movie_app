@@ -33,10 +33,66 @@ class MovieOnlyScreenState extends ConsumerState<MovieOnlyScreen> {
       return Scaffold(body: Center(child: CircularProgressIndicator()));
     }
     return Scaffold(
-      body: CustomScrollView(slivers: [_CustomSliverAppbar(movie: movie)]),
+      body: CustomScrollView(
+        slivers: [
+          _CustomSliverAppbar(movie: movie),
+          
+          SliverList(delegate: SliverChildBuilderDelegate(
+            (context, index) => _MovieDeatils(movie: movie),
+            childCount: 1
+          ))
+          ]
+
+        ),
     );
   }
 }
+
+class _MovieDeatils extends StatelessWidget {
+  final Movie movie;
+  const _MovieDeatils({required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    final style = Theme.of(context).textTheme;
+    final size = MediaQuery.of(context).size;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  movie.posterPath,
+                  width: size.width * 0.3,
+                  )
+                ),
+
+                const SizedBox(width: 10,),
+
+                SizedBox(
+                  width: (size.width - 40) * 0.7 ,
+                  child: Column(
+                    children: [
+                      Text(movie.title, style: style.titleLarge,),
+                      Text(movie.overview)
+                    ],
+
+                  ),
+                  )
+          ],),
+        ),
+
+        SizedBox(height: 100,)
+      ],
+    );
+  }
+}
+
 
 class _CustomSliverAppbar extends StatelessWidget {
   final Movie movie;
