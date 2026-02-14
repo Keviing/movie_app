@@ -50,7 +50,7 @@ class MovieDetail {
         required this.spokenLanguages,
         required this.status,
         required this.tagline,
-        required this.title,
+        required this.title,                                                         
         required this.video,
         required this.voteAverage,
         required this.voteCount,

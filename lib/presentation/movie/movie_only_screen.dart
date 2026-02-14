@@ -87,6 +87,24 @@ class _MovieDeatils extends StatelessWidget {
           ],),
         ),
 
+        //Genero de la pelicula 
+
+        Padding(
+          padding: EdgeInsets.all(8),
+          child: Wrap(
+            children: [
+              ...movie.genreIds.map((gender) => Container(
+                margin: EdgeInsets.only(right: 10),
+                child: Chip(
+                  label: Text(gender),
+                  shape:  RoundedRectangleBorder( borderRadius:  BorderRadius.circular(20)),
+                  ),
+              ))
+            ],
+
+          ),
+          
+          ),
         SizedBox(height: 100,)
       ],
     );
