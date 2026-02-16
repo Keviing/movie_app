@@ -20,8 +20,6 @@ class ActordbDatasource extends ActorDatasource {
       )
   );
 
-  
-
 
   @override
   Future<List<Actor>> getActorByMovie(String movieId) async {
