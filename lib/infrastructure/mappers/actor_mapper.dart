@@ -2,7 +2,7 @@
 import 'package:movie_app/domain/entities/actor.dart';
 import 'package:movie_app/infrastructure/models/Cast/credit_response.dart';
 
-class ClassName {
+class ActorMapper {
   
   static Actor creditToEntity(Cast cast) => Actor(
     id: cast.id, 
