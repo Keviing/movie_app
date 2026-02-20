@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_app/presentation/delegates/delegate_movie.dart';
 
 class CustomAppbar extends StatelessWidget {
   const CustomAppbar({super.key});
@@ -20,7 +21,12 @@ class CustomAppbar extends StatelessWidget {
               //Widget que se ayuda a crecr un espacio entre dos widgets 
               Spacer(),
               IconButton(
-                onPressed: (){}, 
+                onPressed: (){
+                  showSearch(
+                    context: context, 
+                    delegate: DelegateMovie()
+                    );
+                }, 
                 icon: Icon(Icons.search) 
                 ),
             ],
